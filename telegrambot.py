@@ -16,6 +16,7 @@ def setup(bot, update, args):
     # create a new game slot
     Ship.create_new_game(chat_id)
     bot.sendMessage(chat_id=update.message.chat_id, text="A new universe has been created...")
+    # TODO send intro message of the game
     print("Game setup finished")
 
 

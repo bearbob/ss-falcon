@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import random
+import random, time
 from random import randint
 
 gameCollector = []
@@ -24,20 +24,31 @@ femaleNames = [
 
 
 def create_new_game(game_id):
-    game = {}
-
     machines = {
         "power": 0,
         "health": 0,
         "water": 0,
         "food": 0
     }
+    game = {}
     game["machines"] = machines
     game["crew"] = [create_character()]
     game["id"] = game_id
+    game["created"] = time.time()
 
+    # check if a game with this ID already exists
+    if get_game(game_id) is not None:
+        gameCollector.remove(get_game(game_id))
     gameCollector.append(game)
+    # TODO create game intro message
     return game
+
+
+def get_game(game_id):
+    for g in gameCollector:
+        if g["id"] == game_id:
+            return g
+    return None
 
 
 def create_character():
