@@ -20,6 +20,13 @@ def setup(bot, update, args):
     print("Game setup finished")
 
 
+def explore(bot, update, args):
+    chat_id = update.message.chat_id
+    Ship.explore(chat_id)
+    output = Ship.pass_day(chat_id)
+    bot.sendMessage(chat_id=update.message.chat_id, text=output)
+
+
 def main():
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     # Create the Updater and pass it your bot's token.
@@ -27,7 +34,7 @@ def main():
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', setup, pass_args=True))
-    #dispatcher.add_handler(CommandHandler('explore', explore, pass_args=True))
+    dispatcher.add_handler(CommandHandler('explore', explore, pass_args=True))
     #dispatcher.add_handler(CommandHandler('repair', repair, pass_args=True))
     #dispatcher.add_handler(CommandHandler('talk', talk, pass_args=True))
     #dispatcher.add_handler(CommandHandler('nothing', nothing, pass_args=True))
